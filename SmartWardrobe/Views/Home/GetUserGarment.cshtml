@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SmartW.Data.GarmentWear>
+
+@{
+    ViewBag.Title = "GetUserGarment";
+}
+
+<h2>GetUserGarment</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Garment.Season)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wears.WearsId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Garment.Season)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wears.WearsId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GarmentWearId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GarmentWearId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GarmentWearId })
+        </td>
+    </tr>
+}
+
+</table>

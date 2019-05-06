@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="272eb36a3ebf416e84b977ae782208b2" Name="Diagram1">
+        <EntityTypeShape EntityType="SmartWDataModel.Garment" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartWDataModel.GarmentOutfit" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartWDataModel.GarmentWear" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartWDataModel.Outfit" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartWDataModel.User" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartWDataModel.Wears" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="SmartWDataModel.FK_GarmentOutfit" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartWDataModel.FK_GarmentWearId" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartWDataModel.FK__GarmentOu__Outfi__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartWDataModel.FK__GarmentWe__Wears__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartWDataModel.FK_OutfitUser" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartWDataModel.FK_WearsUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

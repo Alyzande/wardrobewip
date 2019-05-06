@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SmartWDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Garment">
+          <Key>
+            <PropertyRef Name="GarmentId" />
+          </Key>
+          <Property Name="GarmentId" Type="int" Nullable="false" />
+          <Property Name="GarmentOutfit" Type="int" />
+          <Property Name="Season" Type="varchar" MaxLength="50" />
+          <Property Name="Weather" Type="varchar" MaxLength="200" />
+          <Property Name="Colour" Type="varchar" MaxLength="50" />
+          <Property Name="Features" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Fit" Type="varchar" MaxLength="50" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+          <Property Name="GarmentWear" Type="int" />
+          <Property Name="Formality" Type="int" />
+          <Property Name="Mending" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GarmentOutfit">
+          <Key>
+            <PropertyRef Name="GarmentOutfitId" />
+          </Key>
+          <Property Name="GarmentOutfitId" Type="int" Nullable="false" />
+          <Property Name="GarmentId" Type="int" />
+          <Property Name="OutfitId" Type="int" />
+        </EntityType>
+        <EntityType Name="GarmentWear">
+          <Key>
+            <PropertyRef Name="GarmentWearId" />
+          </Key>
+          <Property Name="GarmentWearId" Type="int" Nullable="false" />
+          <Property Name="GarmentId" Type="int" />
+          <Property Name="WearsId" Type="int" />
+        </EntityType>
+        <EntityType Name="Outfit">
+          <Key>
+            <PropertyRef Name="OutfitId" />
+          </Key>
+          <Property Name="OutfitId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Favourate" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" />
+          <Property Name="PrefRetailer" Type="varchar" MaxLength="50" />
+          <Property Name="PrefCharity" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wears">
+          <Key>
+            <PropertyRef Name="WearsId" />
+          </Key>
+          <Property Name="WearsId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <Association Name="FK__GarmentOu__Outfi__44FF419A">
+          <End Role="Outfit" Type="Self.Outfit" Multiplicity="0..1" />
+          <End Role="GarmentOutfit" Type="Self.GarmentOutfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Outfit">
+              <PropertyRef Name="OutfitId" />
+            </Principal>
+            <Dependent Role="GarmentOutfit">
+              <PropertyRef Name="OutfitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GarmentWe__Wears__46E78A0C">
+          <End Role="Wears" Type="Self.Wears" Multiplicity="0..1" />
+          <End Role="GarmentWear" Type="Self.GarmentWear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wears">
+              <PropertyRef Name="WearsId" />
+            </Principal>
+            <Dependent Role="GarmentWear">
+              <PropertyRef Name="WearsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarmentOutfit">
+          <End Role="Garment" Type="Self.Garment" Multiplicity="0..1" />
+          <End Role="GarmentOutfit" Type="Self.GarmentOutfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garment">
+              <PropertyRef Name="GarmentId" />
+            </Principal>
+            <Dependent Role="GarmentOutfit">
+              <PropertyRef Name="GarmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarmentWearId">
+          <End Role="Garment" Type="Self.Garment" Multiplicity="0..1" />
+          <End Role="GarmentWear" Type="Self.GarmentWear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garment">
+              <PropertyRef Name="GarmentId" />
+            </Principal>
+            <Dependent Role="GarmentWear">
+              <PropertyRef Name="GarmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutfitUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Outfit" Type="Self.Outfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Outfit">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WearsUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Wears" Type="Self.Wears" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Wears">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartWDataModelStoreContainer">
+          <EntitySet Name="Garment" EntityType="Self.Garment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarmentOutfit" EntityType="Self.GarmentOutfit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarmentWear" EntityType="Self.GarmentWear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outfit" EntityType="Self.Outfit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wears" EntityType="Self.Wears" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__GarmentOu__Outfi__44FF419A" Association="Self.FK__GarmentOu__Outfi__44FF419A">
+            <End Role="Outfit" EntitySet="Outfit" />
+            <End Role="GarmentOutfit" EntitySet="GarmentOutfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GarmentWe__Wears__46E78A0C" Association="Self.FK__GarmentWe__Wears__46E78A0C">
+            <End Role="Wears" EntitySet="Wears" />
+            <End Role="GarmentWear" EntitySet="GarmentWear" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarmentOutfit" Association="Self.FK_GarmentOutfit">
+            <End Role="Garment" EntitySet="Garment" />
+            <End Role="GarmentOutfit" EntitySet="GarmentOutfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarmentWearId" Association="Self.FK_GarmentWearId">
+            <End Role="Garment" EntitySet="Garment" />
+            <End Role="GarmentWear" EntitySet="GarmentWear" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutfitUser" Association="Self.FK_OutfitUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Outfit" EntitySet="Outfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WearsUser" Association="Self.FK_WearsUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Wears" EntitySet="Wears" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartWDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Garment">
+          <Key>
+            <PropertyRef Name="GarmentId" />
+          </Key>
+          <Property Name="GarmentId" Type="Int32" Nullable="false" />
+          <Property Name="GarmentOutfit" Type="Int32" />
+          <Property Name="Season" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Weather" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Colour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Features" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Fit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GarmentWear" Type="Int32" />
+          <Property Name="Formality" Type="Int32" />
+          <Property Name="Mending" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GarmentOutfit1" Relationship="Self.FK_GarmentOutfit" FromRole="Garment" ToRole="GarmentOutfit" />
+          <NavigationProperty Name="GarmentWear1" Relationship="Self.FK_GarmentWearId" FromRole="Garment" ToRole="GarmentWear" />
+        </EntityType>
+        <EntityType Name="GarmentOutfit">
+          <Key>
+            <PropertyRef Name="GarmentOutfitId" />
+          </Key>
+          <Property Name="GarmentOutfitId" Type="Int32" Nullable="false" />
+          <Property Name="GarmentId" Type="Int32" />
+          <Property Name="OutfitId" Type="Int32" />
+          <NavigationProperty Name="Garment" Relationship="Self.FK_GarmentOutfit" FromRole="GarmentOutfit" ToRole="Garment" />
+          <NavigationProperty Name="Outfit" Relationship="Self.FK__GarmentOu__Outfi__44FF419A" FromRole="GarmentOutfit" ToRole="Outfit" />
+        </EntityType>
+        <EntityType Name="GarmentWear">
+          <Key>
+            <PropertyRef Name="GarmentWearId" />
+          </Key>
+          <Property Name="GarmentWearId" Type="Int32" Nullable="false" />
+          <Property Name="GarmentId" Type="Int32" />
+          <Property Name="WearsId" Type="Int32" />
+          <NavigationProperty Name="Garment" Relationship="Self.FK_GarmentWearId" FromRole="GarmentWear" ToRole="Garment" />
+          <NavigationProperty Name="Wears" Relationship="Self.FK__GarmentWe__Wears__46E78A0C" FromRole="GarmentWear" ToRole="Wears" />
+        </EntityType>
+        <EntityType Name="Outfit">
+          <Key>
+            <PropertyRef Name="OutfitId" />
+          </Key>
+          <Property Name="OutfitId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Favourate" Type="Int32" />
+          <NavigationProperty Name="GarmentOutfit" Relationship="Self.FK__GarmentOu__Outfi__44FF419A" FromRole="Outfit" ToRole="GarmentOutfit" />
+          <NavigationProperty Name="User" Relationship="Self.FK_OutfitUser" FromRole="Outfit" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrefRetailer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrefCharity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Outfit" Relationship="Self.FK_OutfitUser" FromRole="User" ToRole="Outfit" />
+          <NavigationProperty Name="Wears" Relationship="Self.FK_WearsUser" FromRole="User" ToRole="Wears" />
+        </EntityType>
+        <EntityType Name="Wears">
+          <Key>
+            <PropertyRef Name="WearsId" />
+          </Key>
+          <Property Name="WearsId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="GarmentWear" Relationship="Self.FK__GarmentWe__Wears__46E78A0C" FromRole="Wears" ToRole="GarmentWear" />
+          <NavigationProperty Name="User" Relationship="Self.FK_WearsUser" FromRole="Wears" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_GarmentOutfit">
+          <End Role="Garment" Type="Self.Garment" Multiplicity="0..1" />
+          <End Role="GarmentOutfit" Type="Self.GarmentOutfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garment">
+              <PropertyRef Name="GarmentId" />
+            </Principal>
+            <Dependent Role="GarmentOutfit">
+              <PropertyRef Name="GarmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarmentWearId">
+          <End Role="Garment" Type="Self.Garment" Multiplicity="0..1" />
+          <End Role="GarmentWear" Type="Self.GarmentWear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garment">
+              <PropertyRef Name="GarmentId" />
+            </Principal>
+            <Dependent Role="GarmentWear">
+              <PropertyRef Name="GarmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GarmentOu__Outfi__44FF419A">
+          <End Role="Outfit" Type="Self.Outfit" Multiplicity="0..1" />
+          <End Role="GarmentOutfit" Type="Self.GarmentOutfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Outfit">
+              <PropertyRef Name="OutfitId" />
+            </Principal>
+            <Dependent Role="GarmentOutfit">
+              <PropertyRef Name="OutfitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GarmentWe__Wears__46E78A0C">
+          <End Role="Wears" Type="Self.Wears" Multiplicity="0..1" />
+          <End Role="GarmentWear" Type="Self.GarmentWear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wears">
+              <PropertyRef Name="WearsId" />
+            </Principal>
+            <Dependent Role="GarmentWear">
+              <PropertyRef Name="WearsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutfitUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Outfit" Type="Self.Outfit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Outfit">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WearsUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Wears" Type="Self.Wears" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Wears">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="b3012222Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Garment" EntityType="Self.Garment" />
+          <EntitySet Name="GarmentOutfit" EntityType="Self.GarmentOutfit" />
+          <EntitySet Name="GarmentWear" EntityType="Self.GarmentWear" />
+          <EntitySet Name="Outfit" EntityType="Self.Outfit" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Wears" EntityType="Self.Wears" />
+          <AssociationSet Name="FK_GarmentOutfit" Association="Self.FK_GarmentOutfit">
+            <End Role="Garment" EntitySet="Garment" />
+            <End Role="GarmentOutfit" EntitySet="GarmentOutfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarmentWearId" Association="Self.FK_GarmentWearId">
+            <End Role="Garment" EntitySet="Garment" />
+            <End Role="GarmentWear" EntitySet="GarmentWear" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GarmentOu__Outfi__44FF419A" Association="Self.FK__GarmentOu__Outfi__44FF419A">
+            <End Role="Outfit" EntitySet="Outfit" />
+            <End Role="GarmentOutfit" EntitySet="GarmentOutfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GarmentWe__Wears__46E78A0C" Association="Self.FK__GarmentWe__Wears__46E78A0C">
+            <End Role="Wears" EntitySet="Wears" />
+            <End Role="GarmentWear" EntitySet="GarmentWear" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutfitUser" Association="Self.FK_OutfitUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Outfit" EntitySet="Outfit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WearsUser" Association="Self.FK_WearsUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Wears" EntitySet="Wears" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartWDataModelStoreContainer" CdmEntityContainer="b3012222Entities">
+          <EntitySetMapping Name="Garment">
+            <EntityTypeMapping TypeName="SmartWDataModel.Garment">
+              <MappingFragment StoreEntitySet="Garment">
+                <ScalarProperty Name="GarmentId" ColumnName="GarmentId" />
+                <ScalarProperty Name="GarmentOutfit" ColumnName="GarmentOutfit" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="Weather" ColumnName="Weather" />
+                <ScalarProperty Name="Colour" ColumnName="Colour" />
+                <ScalarProperty Name="Features" ColumnName="Features" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Fit" ColumnName="Fit" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="GarmentWear" ColumnName="GarmentWear" />
+                <ScalarProperty Name="Formality" ColumnName="Formality" />
+                <ScalarProperty Name="Mending" ColumnName="Mending" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarmentOutfit">
+            <EntityTypeMapping TypeName="SmartWDataModel.GarmentOutfit">
+              <MappingFragment StoreEntitySet="GarmentOutfit">
+                <ScalarProperty Name="GarmentOutfitId" ColumnName="GarmentOutfitId" />
+                <ScalarProperty Name="GarmentId" ColumnName="GarmentId" />
+                <ScalarProperty Name="OutfitId" ColumnName="OutfitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarmentWear">
+            <EntityTypeMapping TypeName="SmartWDataModel.GarmentWear">
+              <MappingFragment StoreEntitySet="GarmentWear">
+                <ScalarProperty Name="GarmentWearId" ColumnName="GarmentWearId" />
+                <ScalarProperty Name="GarmentId" ColumnName="GarmentId" />
+                <ScalarProperty Name="WearsId" ColumnName="WearsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outfit">
+            <EntityTypeMapping TypeName="SmartWDataModel.Outfit">
+              <MappingFragment StoreEntitySet="Outfit">
+                <ScalarProperty Name="OutfitId" ColumnName="OutfitId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Favourate" ColumnName="Favourate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="SmartWDataModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="PrefRetailer" ColumnName="PrefRetailer" />
+                <ScalarProperty Name="PrefCharity" ColumnName="PrefCharity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wears">
+            <EntityTypeMapping TypeName="SmartWDataModel.Wears">
+              <MappingFragment StoreEntitySet="Wears">
+                <ScalarProperty Name="WearsId" ColumnName="WearsId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
